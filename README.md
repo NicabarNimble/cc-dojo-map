@@ -12,15 +12,16 @@ interface
 #[starknet::interface]
 trait ICryptsAndCaverns<TState> {
 
-    fn owner_of(self: @TState, token_id: u256) -> ContractAddress;
+    fn owner_of(self: @TState, token_id: u256);
 
-    fn get_svg(self: @TState, token_id: u128) -> Array<felt252>;
+    fn get_svg(self: @TState, token_id: u256);
 
-    fn generate_dungeon(self: @TState, token_id: u128) -> DungeonSerde;
+    fn generate_dungeon(self: @TState, token_id: u256);
 
-    fn get_seed(self: @TState, token_id: u128) -> u256;
+    fn get_seed(self: @TState, token_id: u256);
 
-    fn mint(ref self: TState) -> u128;
+    fn mint(ref self: TState);
+
 }
 ```
 
@@ -61,7 +62,7 @@ dojoup
 3. Start Katana:
 
 ```shell
-katana --disable-fee
+katana --disable-fee --invoke-max-steps 4294967295
 ```
 
 4. Compile the contract:
@@ -74,6 +75,18 @@ sozo build
 
 ```shell
 sozo migrate --name cc_dojo_map  
+```
+
+6. Indexer
+
+```shell
+torii --world WORLD_ADDRESS
+```
+
+7. Invoke the contract:
+
+```shell
+sozo execute CC_CONTRACT_ADDRESS test
 ```
 
 ### build client
@@ -97,9 +110,18 @@ yarn dev
 http://localhost:5173/
 ```
 
-### Version check
+### Project Structure
 
-| Name | Version | Compatibility Dojo version
-| --- | --- | --- |
-|cc-dojo-map|v0.1.0|v0.2.3|
-|cc-dojo-map|v0.2.0|v0.3.0|
+| Name | Description |
+| --- | --- |
+|client| for testnet c&c|
+|client3| for katana c&c|
+
+### Version Check
+
+| Name | Version | Compatibility Dojo version | Coments
+| --- | --- | --- | --- |
+|cc-dojo-map|v0.1.0|v0.2.3| testnet C&C integrated into Dojo
+|cc-dojo-map|v0.2.0|v0.3.0-rc9| update dojo to v0.3.0-rc9
+|cc-dojo-map|v0.2.1|v0.3.0| update dojo to v0.3.0
+|cc-dojo-map|v0.3.0|v0.3.0| C&C deployed in Katana 

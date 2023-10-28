@@ -1,13 +1,13 @@
 mod interface;
-mod dungeons_generator;
-mod models;
+
+mod models {
+    mod direction;
+    mod cc_map;
+}
+mod actions;
 
 mod systems {
-    // example with #[system] decorator
-    mod with_decorator;
-
-    // raw example with #[starknet::contract] decorator
-    mod raw_contract;
+    mod cc;
 }
 
 mod utils;
